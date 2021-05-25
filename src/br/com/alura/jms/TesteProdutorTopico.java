@@ -35,7 +35,9 @@ public class TesteProdutorTopico {
 		
 		MessageProducer producer = session.createProducer(topico);
 		
-		Message message = session.createTextMessage("<pedido><id>1234</id></pedido>");
+		Message message = session.createTextMessage("<pedido><id>1234</id><ebook>false</ebook></pedido>");
+		message.setBooleanProperty("ebook", true);
+		
 		producer.send(message);
 		
 		//new Scanner(System.in).nextLine();
