@@ -22,12 +22,13 @@ public class TesteConsumidorFila {
 		InitialContext context = new InitialContext();
 
 		ConnectionFactory factory = (ConnectionFactory) context.lookup("ConnectionFactory");
-		Connection connection = factory.createConnection();
+		Connection connection = factory.createConnection("user","senha");
 		connection.start();
 		
 		// Abstrai a parte transacional e configurar como será o recebimento da mensagem
 		// o Session.AUTO_ACKNOWLEDGE ele vai confirmar o recebimento da mensagem
-		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+		// Usando o client Acknowledge e true para ter comportamento transacional e confirmar o Acknowledge
+		Session session = connection.createSession(true, Session.CLIENT_ACKNOWLEDGE);
 		
 		// Precisamos falar no contexto qual a queue
 		Destination fila = (Destination) context.lookup("financeiro");
@@ -41,7 +42,12 @@ public class TesteConsumidorFila {
 				TextMessage textMessage = (TextMessage) message;
 				
 				try {
+					//message.acknowledge();
 					System.out.println("Recebendo msg: " + textMessage.getText());
+					// Confirma recebimento
+					session.commit();
+					// o MOM fica com a mensagem venenosa
+					session.rollback();
 				} catch (JMSException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

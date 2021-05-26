@@ -7,5 +7,16 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/activemq-all-5.12.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fabio/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/2.3.2/jakarta.xml.bind-api-2.3.2.jar" sourcepath="C:/Users/fabio/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/2.3.2/jakarta.xml.bind-api-2.3.2-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="jakarta.xml.bind"/>
+			<attribute name="maven.artifactId" value="jakarta.xml.bind-api"/>
+			<attribute name="maven.version" value="2.3.2"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/fabio/.m2/repository/jakarta/activation/jakarta.activation-api/1.2.2/jakarta.activation-api-1.2.2.jar"/>
+	<classpathentry kind="lib" path="D:/Users/fabio/Documents/Eclipse-workspace/jms/lib/jaxb-api-2.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

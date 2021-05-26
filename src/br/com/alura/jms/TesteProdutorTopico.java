@@ -1,5 +1,6 @@
 package br.com.alura.jms;
 
+import java.io.StringWriter;
 import java.util.Scanner;
 
 import javax.jms.Connection;
@@ -13,6 +14,10 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.naming.InitialContext;
+import javax.xml.bind.JAXB;
+
+import br.com.alura.jms.modelo.Pedido;
+import br.com.alura.jms.modelo.PedidoFactory;
 
 
 public class TesteProdutorTopico {
@@ -23,7 +28,7 @@ public class TesteProdutorTopico {
 		InitialContext context = new InitialContext();
 
 		ConnectionFactory factory = (ConnectionFactory) context.lookup("ConnectionFactory");
-		Connection connection = factory.createConnection();
+		Connection connection = factory.createConnection("admin","senha");
 		connection.start();
 		
 		// Abstrai a parte transacional e configurar como será o recebimento da mensagem
@@ -35,8 +40,16 @@ public class TesteProdutorTopico {
 		
 		MessageProducer producer = session.createProducer(topico);
 		
-		Message message = session.createTextMessage("<pedido><id>1234</id><ebook>false</ebook></pedido>");
-		message.setBooleanProperty("ebook", true);
+		Pedido pedido = new PedidoFactory().geraPedidoComValores();
+		
+		//StringWriter writer = new StringWriter();
+		//JAXB.marshal(pedido, writer);
+		
+		//String xml = writer.toString();
+		//System.out.println(xml);
+		
+		Message message = session.createObjectMessage(pedido);
+		//message.setBooleanProperty("ebook", false);
 		
 		producer.send(message);
 		
